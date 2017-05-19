@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import MainSection from '../components/MainSection';
+import Portfolio from '../components/Portfolio';
 import * as TodoActions from '../actions/todos';
 import style from './App.css';
 
 @connect(
   state => ({
-    todos: state.todos
+    portfolioItems: state.todos
   }),
   dispatch => ({
     actions: bindActionCreators(TodoActions, dispatch)
@@ -17,17 +17,17 @@ import style from './App.css';
 export default class App extends Component {
 
   static propTypes = {
-    todos: PropTypes.array.isRequired,
+    portfolioItems: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
   };
 
   render() {
-    const { todos, actions } = this.props;
+    const { portfolioItems, actions } = this.props;
 
     return (
       <div className={style.normal}>
         <Header addTodo={actions.addTodo} />
-        <MainSection todos={todos} actions={actions} />
+        <Portfolio items={portfolioItems} actions={actions} />
       </div>
     );
   }

@@ -16,11 +16,11 @@ export default class Header extends Component {
   render() {
     return (
       <header>
-        <h1>todos</h1>
+        <h1>Portfolio</h1>
         <TodoTextInput
           newTodo
           onSave={this.handleSave}
-          placeholder="What needs to be done?"
+          placeholder="Add Position. e.g. Apple Inc (APPL)"
         />
       </header>
     );

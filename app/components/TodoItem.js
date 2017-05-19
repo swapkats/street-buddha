@@ -58,12 +58,6 @@ export default class TodoItem extends Component {
     } else {
       element = (
         <div className={style.view}>
-          <input
-            className={style.toggle}
-            type="checkbox"
-            checked={todo.completed}
-            onChange={this.handleComplete}
-          />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>

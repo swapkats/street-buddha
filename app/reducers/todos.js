@@ -1,7 +1,7 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = [{
-  text: 'Use Redux',
+  text: 'Amazon inc',
   completed: false,
   id: 0
 }];
