@@ -8,7 +8,8 @@ import style from './App.css';
 
 @connect(
   state => ({
-    portfolioItems: state.todos
+    portfolioItems: state.todos,
+    scripts: state.scripts
   }),
   dispatch => ({
     actions: bindActionCreators(TodoActions, dispatch)
@@ -22,11 +23,11 @@ export default class App extends Component {
   };
 
   render() {
-    const { portfolioItems, actions } = this.props;
+    const { portfolioItems, actions, scripts } = this.props;
 
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} />
+        <Header addTodo={actions.addTodo} scripts={scripts} />
         <Portfolio items={portfolioItems} actions={actions} />
       </div>
     );
