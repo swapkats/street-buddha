@@ -4,15 +4,20 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Portfolio from '../components/Portfolio';
 import * as TodoActions from '../actions/todos';
+import * as SymbolActions from '../actions/symbols';
 import style from './App.css';
 
 @connect(
-  state => ({
-    portfolioItems: state.todos,
-    scripts: state.scripts
+  state => (state => {
+    console.log(state);
+    return {
+      portfolioItems: state.todos,
+      scripts: state.scripts,
+      suggestions: state.suggestions,
+    };
   }),
   dispatch => ({
-    actions: bindActionCreators(TodoActions, dispatch)
+    actions: bindActionCreators({ ...TodoActions, ...SymbolActions }, dispatch)
   })
 )
 export default class App extends Component {
@@ -22,12 +27,15 @@ export default class App extends Component {
     actions: PropTypes.object.isRequired
   };
 
-  render() {
-    const { portfolioItems, actions, scripts } = this.props;
+  componentWillMount() {
+  }
 
+  render() {
+    const { portfolioItems, actions, scripts, suggestions } = this.props;
+    console.log(suggestions);
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} scripts={scripts} />
+        <Header addTodo={actions.addTodo} suggestions={suggestions} scripts={scripts} getSymbolSuggestions={actions.getSymbolSuggestions} />
         <Portfolio items={portfolioItems} actions={actions} />
       </div>
     );

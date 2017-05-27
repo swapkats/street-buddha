@@ -1,22 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import Autosuggest from 'react-autosuggest';
-import TodoTextInput from './TodoTextInput';
-import styles from '../containers/App.css';
 
-const getSuggestions = (dataset, value) => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : dataset.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  );
-};
-
-const getSuggestionValue = suggestion => suggestion.sym;
+const getSuggestionValue = suggestion => suggestion.s;
 
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.name} ({suggestion.sym})
+    {suggestion.n} ({suggestion.s})
   </div>
 );
 
@@ -25,11 +14,14 @@ export default class Header extends Component {
     addTodo: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    suggestions: [],
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      suggestions: [], //eslint-disable-line
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -48,9 +40,7 @@ export default class Header extends Component {
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(this.props.scripts, value)
-    });
+    this.props.getSymbolSuggestions(value);
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -58,12 +48,6 @@ export default class Header extends Component {
     this.setState({
       suggestions: []
     });
-  };
-
-  handleSave = (text) => {
-    if (text.length !== 0) {
-      this.props.addTodo(text);
-    }
   };
 
   render() {
@@ -76,7 +60,7 @@ export default class Header extends Component {
       <header>
         <h1>Portfolio</h1>
         <Autosuggest
-          suggestions={this.state.suggestions}
+          suggestions={this.props.suggestions}
           renderSuggestion={renderSuggestion}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
