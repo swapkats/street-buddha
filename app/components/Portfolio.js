@@ -34,22 +34,30 @@ export default class MainSection extends Component {
   };
 
   render() {
-    const { items, actions } = this.props;
+    const { items, quotes, actions } = this.props;
     return (
       <section className={style.main}>
-        <ul className={style.todoList}>
-          {items.map(item =>
-            <li key={`${Math.random()}`}>
+        <table className={style.todoList}>
+          <thead>
+            <td>Company</td>
+            <td>Symbol</td>
+            <td>Last Price</td>
+            <td>Change</td>
+            <td>Volume</td>
+          </thead>
+          <tbody>
+            {items.map(item =>
               <Position
                 key={`${Math.random()}`}
                 name={item.n}
                 symbol={item.s}
+                {...quotes[item.s]}
                 onDeletePosition={this.props.onDeletePosition}
                 {...actions}
               />
-            </li>
-          )}
-        </ul>
+            )}
+          </tbody>
+        </table>
       </section>
     );
   }

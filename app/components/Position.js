@@ -15,25 +15,38 @@ export default class TodoItem extends Component {
   }
 
   handleDelete = () => {
-    const { todo, onDeletePosition } = this.props;
-    onDeletePosition(todo.id);
+    const { symbol, onDeletePosition } = this.props;
+    onDeletePosition(symbol);
   };
 
   render() {
     const { props } = this;
     return (
-      <div className={style.view}>
-        <span className={style.value}>
+      <tr>
+        <td className={style.value}>
           {props.name}
-        </span>
-        <span className={style.value}>
+        </td>
+        <td className={style.value}>
           {props.symbol}
-        </span>
-        <button
-          className={style.destroy}
-          onClick={this.handleDelete}
-        />
-      </div>
+        </td>
+        <td className={style.value}>
+          {props.closePrice}
+        </td>
+        <td className={style.value}>
+          {props.change}
+        </td>
+        <td className={style.value}>
+          {props.totalTradedVolume}
+        </td>
+        <td>
+          <button
+            className={style.destroy}
+            onClick={this.handleDelete}
+          >
+            x
+          </button>
+        </td>
+      </tr>
     );
   }
 }

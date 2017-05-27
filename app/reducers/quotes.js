@@ -1,9 +1,14 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {};
 
 const actionsMap = {
-  
+  [ActionTypes.UPDATE_QUOTES](state, action) {
+    return {
+      ...state,
+      ...action.quotes,
+    };
+  }
 };
 
 export default function todos(state = initialState, action) {

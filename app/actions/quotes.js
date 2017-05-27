@@ -6,8 +6,8 @@ export function updateQuotes() { // eslint-disable-line
     const state = getState();
     const { positions } = state;
     api.getQuotes(positions)
-      .then((res) => {
-        dispatch({ type: types.UPDATE_QUOTES, res });
+      .then((quotes) => {
+        dispatch({ type: types.UPDATE_QUOTES, quotes });
       });
   };
 }
