@@ -8,13 +8,10 @@ import * as SymbolActions from '../actions/symbols';
 import style from './App.css';
 
 @connect(
-  state => (state => {
-    console.log(state);
-    return {
-      portfolioItems: state.todos,
-      scripts: state.scripts,
-      suggestions: state.suggestions,
-    };
+  state => ({
+    portfolioItems: state.todos,
+    scripts: state.scripts,
+    suggestions: state.suggestions,
   }),
   dispatch => ({
     actions: bindActionCreators({ ...TodoActions, ...SymbolActions }, dispatch)
@@ -32,10 +29,14 @@ export default class App extends Component {
 
   render() {
     const { portfolioItems, actions, scripts, suggestions } = this.props;
-    console.log(suggestions);
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} suggestions={suggestions} scripts={scripts} getSymbolSuggestions={actions.getSymbolSuggestions} />
+        <Header
+          addTodo={actions.addTodo}
+          suggestions={suggestions}
+          scripts={scripts}
+          getSymbolSuggestions={actions.getSymbolSuggestions}
+        />
         <Portfolio items={portfolioItems} actions={actions} />
       </div>
     );

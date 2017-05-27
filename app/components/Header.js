@@ -52,7 +52,7 @@ export default class Header extends Component {
 
   render() {
     const inputProps = {
-      placeholder: 'Add Position. e.g. Apple Inc (APPL)',
+      placeholder: 'Add Position. e.g. Vedanta Ltd (VEDL)',
       value: this.state.value,
       onChange: this.onChange,
     };
