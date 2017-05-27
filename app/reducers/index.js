@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import todos from './todos';
-import scripts from './scripts';
+import quotes from './quotes';
+import positions from './positions';
 import suggestions from './suggestions';
 
 export default combineReducers({
-  todos,
-  scripts,
+  quotes,
+  positions,
   suggestions,
 });

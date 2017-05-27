@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import TodoItem from './TodoItem';
+import Position from './Position';
 import Footer from './Footer';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import style from './Portfolio.css';
@@ -35,19 +35,19 @@ export default class MainSection extends Component {
 
   render() {
     const { items, actions } = this.props;
-    const { filter } = this.state;
-
-    const filteredTodos = items.filter(TODO_FILTERS[filter]);
-    const completedCount = items.reduce(
-      (count, todo) => (todo.completed ? count + 1 : count),
-      0
-    );
-
     return (
       <section className={style.main}>
         <ul className={style.todoList}>
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+          {items.map(item =>
+            <li key={`${Math.random()}`}>
+              <Position
+                key={`${Math.random()}`}
+                name={item.n}
+                symbol={item.s}
+                onDeletePosition={this.props.onDeletePosition}
+                {...actions}
+              />
+            </li>
           )}
         </ul>
       </section>

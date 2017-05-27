@@ -11,7 +11,7 @@ const renderSuggestion = suggestion => (
 
 export default class Header extends Component {
   static propTypes = {
-    addTodo: PropTypes.func.isRequired
+    addPosition: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -37,12 +37,13 @@ export default class Header extends Component {
 
   onSuggestionSelected = (event, { suggestion, suggestionValue }) => {
     this.setState({
+      suggestionSelected: suggestion,
       value: suggestionValue,
       isSymbolSelected: true,
     });
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
+  onSuggestionsFetchRequested = ({ value = '' }) => {
     this.props.getSymbolSuggestions(value);
   };
 
@@ -56,7 +57,7 @@ export default class Header extends Component {
   onKeyDown(e) {
     const isEnterKey = e.key === 'Enter';
     if (isEnterKey && this.state.value.length !== 0 && this.state.isSymbolSelected) {
-      this.props.addTodo(this.state.value);
+      this.props.addPosition(this.state.suggestionSelected);
       this.setState({ value: '' });
     }
   }

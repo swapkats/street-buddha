@@ -3,41 +3,48 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Portfolio from '../components/Portfolio';
-import * as TodoActions from '../actions/todos';
+import * as PositionActions from '../actions/positions';
 import * as SymbolActions from '../actions/symbols';
+import * as QuoteActions from '../actions/quotes';
 import style from './App.css';
 
 @connect(
   state => ({
-    portfolioItems: state.todos,
-    scripts: state.scripts,
+    quotes: state.quotes,
     suggestions: state.suggestions,
+    positions: state.positions,
   }),
   dispatch => ({
-    actions: bindActionCreators({ ...TodoActions, ...SymbolActions }, dispatch)
+    actions: bindActionCreators({ ...PositionActions, ...SymbolActions, ...QuoteActions }, dispatch)
   })
 )
 export default class App extends Component {
 
   static propTypes = {
-    portfolioItems: PropTypes.array.isRequired,
+    positions: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.actions.updateQuotes();
   }
 
   render() {
-    const { portfolioItems, actions, scripts, suggestions } = this.props;
+    const { positions, actions, scripts, suggestions, quotes } = this.props;
     return (
       <div className={style.normal}>
         <Header
-          addTodo={actions.addTodo}
+          addPosition={actions.addPosition}
           suggestions={suggestions}
           scripts={scripts}
           getSymbolSuggestions={actions.getSymbolSuggestions}
         />
-        <Portfolio items={portfolioItems} actions={actions} />
+        <Portfolio
+          items={positions}
+          actions={actions}
+          quotes={quotes}
+          onDeletePosition={this.props.onDeletePosition}
+        />
       </div>
     );
   }

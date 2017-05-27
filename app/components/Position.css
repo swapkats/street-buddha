@@ -1,0 +1,11 @@
+.view {
+  display: flex;
+}
+
+.view:hover {
+  background: #fefefe;
+}
+
+.value {
+  padding: 15px 30px;
+}
