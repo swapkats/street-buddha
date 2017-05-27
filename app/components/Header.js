@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
-const getSuggestionValue = suggestion => suggestion.s;
+const getSuggestionValue = suggestion => `${suggestion.n} (${suggestion.s})`;
 
 const renderSuggestion = suggestion => (
   <div>
@@ -22,8 +22,10 @@ export default class Header extends Component {
     super(props);
     this.state = {
       value: '',
+      isSymbolSelected: false,
     };
     this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onChange(event, { newValue }) {
@@ -35,7 +37,8 @@ export default class Header extends Component {
 
   onSuggestionSelected = (event, { suggestion, suggestionValue }) => {
     this.setState({
-      value: suggestionValue
+      value: suggestionValue,
+      isSymbolSelected: true,
     });
   };
 
@@ -50,11 +53,20 @@ export default class Header extends Component {
     });
   };
 
+  onKeyDown(e) {
+    const isEnterKey = e.key === 'Enter';
+    if (isEnterKey && this.state.value.length !== 0 && this.state.isSymbolSelected) {
+      this.props.addTodo(this.state.value);
+      this.setState({ value: '' });
+    }
+  }
+
   render() {
     const inputProps = {
       placeholder: 'Add Position. e.g. Vedanta Ltd (VEDL)',
       value: this.state.value,
       onChange: this.onChange,
+      onKeyDown: this.onKeyDown
     };
     return (
       <header>
