@@ -36,6 +36,9 @@ export default class TodoItem extends Component {
           {props.change}
         </td>
         <td className={style.value}>
+          {props.pChange}%
+        </td>
+        <td className={style.value}>
           {props.totalTradedVolume}
         </td>
         <td>

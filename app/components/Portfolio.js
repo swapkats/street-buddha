@@ -43,6 +43,7 @@ export default class MainSection extends Component {
             <td>Symbol</td>
             <td>Last Price</td>
             <td>Change</td>
+            <td>% Change</td>
             <td>Volume</td>
           </thead>
           <tbody>
